@@ -1,26 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:todo_list_provider/app/core/database/sqlite_adm_connection.dart';
+import 'package:todo_list_provider/app/modules/auth/auth_module.dart';
 import 'package:todo_list_provider/app/modules/splash/splash_page.dart';
 
 class AppWidget extends StatefulWidget {
-  const AppWidget({super.key});
+  const AppWidget({Key? key}) : super(key: key);
 
   @override
   State<AppWidget> createState() => _AppWidgetState();
 }
 
 class _AppWidgetState extends State<AppWidget> {
-  var sqliteAdmConnection = SqliteAdmConnection();
-  
+  final sqliteAdmConnection = SqliteAdmConnection();
+
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance?.addObserver(sqliteAdmConnection);
+    WidgetsBinding.instance.addObserver(sqliteAdmConnection);
   }
 
   @override
   void dispose() {
-    WidgetsBinding.instance?.removeObserver(sqliteAdmConnection);
+    WidgetsBinding.instance.removeObserver(sqliteAdmConnection);
     super.dispose();
   }
 
@@ -30,10 +31,14 @@ class _AppWidgetState extends State<AppWidget> {
       appBar: AppBar(
         title: const Text(''),
       ),
-      body: const MaterialApp(
+      body: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Todo List Provider',
-        home: SplashPage(),
+        initialRoute: '/login',
+        routes: {
+          ...AuthModule().routers,
+        },
+        home: const SplashPage(),
       ),
     );
   }

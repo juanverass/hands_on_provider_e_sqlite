@@ -4,7 +4,9 @@ import 'package:todo_list_provider/app/app_widget.dart';
 import 'package:todo_list_provider/app/core/database/sqlite_connection_factory.dart';
 
 class AppModule extends StatelessWidget {
-  const AppModule({super.key});
+  const AppModule({Key? key}) : super(key: key);
+
+  
 
   @override
   Widget build(BuildContext context) {
